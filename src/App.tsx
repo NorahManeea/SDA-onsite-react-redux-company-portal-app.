@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <h1>Companies Portal App</h1>
-      <Companies/>
       <Routes>
+        <Route path="/" element={<Companies/>}/>
         <Route path="/:id" element={<CompanyDetails/>}/>
       </Routes>
 

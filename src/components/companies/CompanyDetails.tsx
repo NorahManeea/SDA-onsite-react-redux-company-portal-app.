@@ -6,10 +6,10 @@ import { RootState } from '../../store'
 export default function CompanyDetails() {
   const  companies  = useSelector((state: RootState) => state.company.companies);
   const { id } = useParams();
-  useEffect(() => {
     const company = companies.find((p) => p.id === Number(id))
-  }, [id])
+
   return <div>
+<p>{company?.id}</p>
 
   </div>
 }
