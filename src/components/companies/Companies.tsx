@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { companyActions } from '../../redux/companySlice'
 import { RootState } from '../../store'
 import { CircularProgress } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export default function Companies() {
   const { companies, isLoading, error } = useSelector((state: RootState) => state.company)
@@ -31,7 +32,9 @@ export default function Companies() {
       {companies.map((company) => (
         <div key={company.id}>
           <img src={company.avatar_url} alt={company.login} />
-          <p>{company.login.toUpperCase()}</p>
+          <h4>{company.login.toUpperCase()}</h4>
+          <p>{company.description}</p>
+        <button>  <Link to={`/${company.id}`} >See More</Link></button>
         </div>
       ))}
     </div>

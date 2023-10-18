@@ -5,6 +5,8 @@ import { decrement, increment } from './features/counterSlice'
 import { RootState } from './store'
 import './App.css'
 import Companies from './components/companies/Companies'
+import { Route, Routes } from 'react-router-dom'
+import CompanyDetails from './components/companies/CompanyDetails'
 
 function App() {
   const count = useSelector((state: RootState) => state.counter.value)
@@ -13,6 +15,10 @@ function App() {
     <div className="App">
       <h1>Companies Portal App</h1>
       <Companies/>
+      <Routes>
+        <Route path="/:id" element={<CompanyDetails/>}/>
+      </Routes>
+
      
     </div>
   )

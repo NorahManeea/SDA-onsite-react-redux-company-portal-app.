@@ -5,7 +5,7 @@ import { CompanyInitialState } from "../types/types";
 const initialState: CompanyInitialState = {
     companies: [],
     isLoading: false,
-    error: null
+    error: null,
 }
 // export const fetchAllCompanies = createAsyncThunk("companies/fetchallcompanies", async()=>{
 //     const response = await fetch("https://api.github.com/organizations");
