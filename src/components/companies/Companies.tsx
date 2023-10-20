@@ -14,10 +14,9 @@ import {
   Container
 } from '@mui/material'
 import { Link } from 'react-router-dom'
-import SearchBar from '../searchBar/SearchBar'
 
 export default function Companies() {
-  const { companies, isLoading, error, searchQuery, filteredCompanies } = useSelector(
+  const { companies, isLoading, error, searchText } = useSelector(
     (state: RootState) => state.company
   )
 
@@ -33,6 +32,11 @@ export default function Companies() {
   const handleSort = () => {
     dispatch(companyActions.sortCompanies())
   }
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(companyActions.searchCompany(Number(event.target.value)))
+  }
+  const filterCompanies = searchText? companies.filter((company)=> company.id === searchText) : companies;
+
   useEffect(() => {
     fetchData()
   })
@@ -45,12 +49,13 @@ export default function Companies() {
   }
   return (
     <Container>
-      <SearchBar />
+      <input value={searchText} onChange={handleSearch} />
+      <br/>
       <Button onClick={handleSort} variant="contained">
         Sort Companies
       </Button>
       <Grid container spacing={4}>
-        {companies.map((company) => (
+        {filterCompanies.map((company) => (
           <Grid item xs={12} sm={6} md={4} key={company.id}>
             <Card sx={{ height: '100%', padding: '5px' }}>
               <CardMedia

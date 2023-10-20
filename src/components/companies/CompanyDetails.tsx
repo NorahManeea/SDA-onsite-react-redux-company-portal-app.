@@ -4,9 +4,12 @@ import { useParams } from 'react-router-dom'
 import { AppDispatch, RootState } from '../../store'
 import axios from 'axios'
 import { companyActions } from '../../redux/companyDetailsSlice'
+import { CircularProgress } from '@mui/material'
 
 export default function CompanyDetails() {
   const company = useSelector((state: RootState) => state.companyDetail.company)
+  const {isLoading, error} = useSelector((state: RootState) => state.companyDetail)
+
   const { id } = useParams()
 
   const dispatch = useDispatch<AppDispatch>()
@@ -22,6 +25,13 @@ export default function CompanyDetails() {
   useEffect(() => {
     fetchData()
   }, [])
+
+  if (isLoading) {
+    return <CircularProgress />
+  }
+  if (error) {
+    return <div>Error: {error}</div>
+  }
   return (
     <div>
       <p>ID: {company?.id}</p>

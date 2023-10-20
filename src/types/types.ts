@@ -41,12 +41,12 @@ export type CompanyDetail = {
 export type CompanyInitialState = {
   companies: Companies[]
   isLoading: boolean
-  error: null | string
-  searchQuery: string
-  filteredCompanies: Companies[]
+  error: null | string,
+  searchText: number
 }
 export type InitialState = {
   company: CompanyDetail | null
   isLoading: boolean
   error: null | string
 }
+
