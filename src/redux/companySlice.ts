@@ -5,7 +5,7 @@ const initialState: CompanyInitialState = {
   companies: [],
   isLoading: false,
   error: null,
-  searchText: 0
+  searchText: " "
 }
 // export const fetchAllCompanies = createAsyncThunk("companies/fetchallcompanies", async()=>{
 //     const response = await fetch("https://api.github.com/organizations");
@@ -23,11 +23,17 @@ const companySlice = createSlice({
     getError: (state, action: PayloadAction<string>) => {
       state.error = action.payload
     },
-    searchCompany: (state,action: PayloadAction<number>)=>{
+    searchCompany: (state,action: PayloadAction<string>)=>{
       state.searchText = action.payload
     },
-    sortCompanies: (state) => {
-      state.companies.sort()
+    sortCompanies: (state, action: PayloadAction<string>) => {
+      const sortCriteria = action.payload;
+      if(sortCriteria === 'login'){
+        state.companies.sort((a,b)=> a.login.localeCompare(b.login))
+      }else if(sortCriteria === 'id'){
+        state.companies.sort((a,b)=> b.id - a.id)
+      }
+      console.log(sortCriteria)
     }
   }
   // extraReducers: (builder)=>{

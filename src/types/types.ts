@@ -42,7 +42,7 @@ export type CompanyInitialState = {
   companies: Companies[]
   isLoading: boolean
   error: null | string,
-  searchText: number
+  searchText: string 
 }
 export type InitialState = {
   company: CompanyDetail | null

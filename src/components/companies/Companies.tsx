@@ -14,6 +14,7 @@ import {
   Container
 } from '@mui/material'
 import { Link } from 'react-router-dom'
+import SortCompany from './SortCompany'
 
 export default function Companies() {
   const { companies, isLoading, error, searchText } = useSelector(
@@ -29,13 +30,11 @@ export default function Companies() {
       .then((response) => dispatch(companyActions.fetchData(response.data)))
       .catch((error) => dispatch(companyActions.getError(error.message)))
   }
-  const handleSort = () => {
-    dispatch(companyActions.sortCompanies())
-  }
+
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(companyActions.searchCompany(Number(event.target.value)))
+    dispatch(companyActions.searchCompany(event.target.value))
   }
-  const filterCompanies = searchText? companies.filter((company)=> company.id === searchText) : companies;
+  const filterCompanies = searchText ? companies.filter((company)=> company.login.toLowerCase().includes(searchText.toLowerCase())) : companies;
 
   useEffect(() => {
     fetchData()
@@ -51,9 +50,8 @@ export default function Companies() {
     <Container>
       <input value={searchText} onChange={handleSearch} />
       <br/>
-      <Button onClick={handleSort} variant="contained">
-        Sort Companies
-      </Button>
+      <SortCompany/>
+      <br/>
       <Grid container spacing={4}>
         {filterCompanies.map((company) => (
           <Grid item xs={12} sm={6} md={4} key={company.id}>
@@ -67,6 +65,7 @@ export default function Companies() {
               <CardContent>
                 <Typography variant="h6" component="h2" sx={{ fontWeight: 'bold' }}>
                   {company.login.toUpperCase()}
+                  {company.id}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {company.description ?? '-'}
